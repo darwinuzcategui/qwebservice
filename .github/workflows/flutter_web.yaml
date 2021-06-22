@@ -1,0 +1,35 @@
+name: Qweb Service Web
+
+on:
+  push:
+    branches:
+      - main
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: action/checkout@v2
+
+    - name: Setup Flutter
+      uses: subosito/flutter-action@v1
+      with:
+        channel: 'master'
+    
+    - name: Enable Flutter web
+      run: flutter config --enable-web
+
+    - name: Install dependeces
+      run: flutter packages get
+
+    - name: Build web Qwebservive
+      run: flutter build web
+
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.token }}
+        publish_dir: ./build/web
