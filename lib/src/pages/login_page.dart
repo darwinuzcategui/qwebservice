@@ -141,7 +141,6 @@ class LoginPage extends StatelessWidget {
     } else {
       showAlertQweb(context, info["mensaje"]);
     }
-
   }
 
   Widget _createBackgroundQweb(BuildContext context) {

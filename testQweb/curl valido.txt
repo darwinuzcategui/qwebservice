@@ -1,0 +1,20 @@
+
+CURL VALIDO
+
+// SERVIDOR NUBE
+curl --location --request POST 'http://70.36.114.168:8095//qweb/obtenerUsuarioWS.do' \
+--header 'Authorization: 38-251-236-49-55-138-50-214' \
+--data-raw '{ 
+"usuario":"duzcategui",
+ "clave":"123456"
+ }'
+
+// SERVIDOR LOCAL
+
+curl --location --request POST 'http://192.168.0.5:8080//qweb/obtenerUsuarioWS.do' \
+--header 'Authorization: 38-251-236-49-55-138-50-214' \
+--data-raw '{ 
+"usuario":"gmd",
+ "clave":"123456"
+ }'
+

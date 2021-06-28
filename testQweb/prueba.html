@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<div id="demo">
+<h1>The XMLHttpRequest Object</h1>
+<button type="button" onclick="loadDoc()">Change Content</button>
+</div>
+
+<script>
+function loadDoc() {
+  var xhttp = new XMLHttpRequest();
+  var authData = {'usuario': 'gmd', 'clave': '123456'};
+   
+  xhttp.onreadystatechange = function() {
+    if (this.readyState == 4 && this.status == 200) {
+      document.getElementById("demo").innerHTML =
+      this.responseText;
+    }
+  };
+
+  xhttp.open("POST", "http://192.168.0.5:8080/qweb/obtenerUsuarioWS.do", true);
+  xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+  xhttp.setRequestHeader('Authorization', '12222-1222-Token');
+  xhttp.send(JSON.stringify(authData)); // Make sure to stringify
+}
+</script>
+
+</body>
+</html>
