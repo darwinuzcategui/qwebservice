@@ -9,7 +9,7 @@ class UserQwebProvider {
   final String _qwebToken = '38-251-236-49-55-138-50-213';
 
   // ignore: missing_return
- 
+
   Future<Map<String, dynamic>> userQweb(String usuario, String password) async {
     final authData = {'usuario': usuario, 'clave': password};
 
@@ -20,7 +20,7 @@ class UserQwebProvider {
 
     try {
       final resp = await http.post(
-          Uri.parse('http://192.168.0.5:8080/qweb/obtenerUsuarioWS.do'),
+          Uri.parse('http://70.36.114.168:8095/qweb/obtenerUsuarioWS.do'),
           headers: <String, String>{
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': _qwebToken,

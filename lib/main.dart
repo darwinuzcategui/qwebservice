@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qwebdoc/src/bloc/provider.dart';
 import 'package:qwebdoc/src/pages/home_page.dart';
 import 'package:qwebdoc/src/pages/login_page.dart';
+import 'package:qwebdoc/src/pages/document_page.dart';
 import 'src/preferences_userQweb/preferences_userQweb.dart';
 
 void main() async {
@@ -26,7 +27,9 @@ class MyApp extends StatelessWidget {
         routes: {
           'login': (BuildContext context) => LoginPage(),
           'home': (BuildContext context) => HomePage(),
+          'document': (BuildContext context) => DocumentPage(),
         },
+        theme: ThemeData(primaryColor: Colors.green.shade300),
       ),
     );
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:qwebdoc/src/bloc/provider.dart';
 import 'package:qwebdoc/src/preferences_userQweb/preferences_userQweb.dart';
-//import 'package:qwebdoc/src/preferences_userQweb/preferences_userQweb.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key key}) : super(key: key);
@@ -24,6 +23,15 @@ class HomePage extends StatelessWidget {
           Text('Token  : ${prefs.token}')
         ],
       ),
+      floatingActionButton: _createButton(context),
+    );
+  }
+
+  _createButton(BuildContext context) {
+    return FloatingActionButton(
+      child: Icon(Icons.add),
+      backgroundColor: Colors.green.shade300,
+      onPressed: () => Navigator.pushNamed(context, 'document'),
     );
   }
 }
