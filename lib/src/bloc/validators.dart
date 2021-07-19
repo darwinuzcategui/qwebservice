@@ -4,7 +4,7 @@ class Validators {
   final validateUsername = StreamTransformer<String, String>.fromHandlers(
       handleData: (userNameQweb, sink) {
     Pattern pattern = r'^[a-z0-9_-]{3,15}$';
-    RegExp regExp = new RegExp(pattern);
+    RegExp regExp = new RegExp(pattern as String);
     if (regExp.hasMatch(userNameQweb)) {
       sink.add(userNameQweb);
     } else {

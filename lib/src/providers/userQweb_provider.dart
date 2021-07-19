@@ -6,7 +6,7 @@ import 'package:qwebdoc/src/preferences_userQweb/preferences_userQweb.dart';
 class UserQwebProvider {
   //final String _qwebToken = '38-251-236-49-55-138-50-213';
   var prefs = new PreferenceUserqweb();
-  final String _qwebToken = '38-251-236-49-55-138-50-213';
+  String get _qwebToken => prefs.token; //'4-223-55-37-16-49-41-176';
 
   // ignore: missing_return
 
@@ -20,7 +20,7 @@ class UserQwebProvider {
 
     try {
       final resp = await http.post(
-          Uri.parse('http://70.36.114.168:8095/qweb/obtenerUsuarioWS.do'),
+          Uri.parse('http://192.168.0.6:8095/qweb/obtenerUsuarioWS.do'),
           headers: <String, String>{
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': _qwebToken,

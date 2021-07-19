@@ -1,21 +1,28 @@
 import 'dart:convert';
 
+import 'package:flutter/widgets.dart';
 import 'package:qwebdoc/src/models/document_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:qwebdoc/src/preferences_userQweb/preferences_userQweb.dart';
 
-class DocumnetProvider {
-  //final String _url = 'http://192.168.0.5:8080';
-  final String _url = 'http://70.36.114.168:8095';
-  final String _qwebToken = '196-167-25-199-213-127-87-229';
+class DocumnetProvider extends ChangeNotifier {
+  final String _url = 'http://192.168.0.6:8080';
+  //final String _url = 'http://70.36.114.168:8095';
+  var prefs = new PreferenceUserqweb();
+  String get _qwebToken => prefs.token;
 
   Future<bool> crearDocument(DocumentModel document) async {
     final url = '$_url/qweb/recibirDocumentoExternosWS.do';
     final pruebajson = {
       'nombreArchivo': document.nombreArchivo,
       'emailUsuarioRecibe': document.emailUsuarioRecibe,
-      'archivo': [100, 97, 114, 119, 105, 110]
+      'archivo': document.archivo
     };
-    final resp = await http.post(url,
+    print("***********************");
+    print(_qwebToken);
+    print("***********************");
+    // Uri.parse('http://70.
+    final resp = await http.post(Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/x-www-form-urlencoded',
           'Authorization': _qwebToken,

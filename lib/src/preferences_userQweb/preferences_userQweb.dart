@@ -11,15 +11,16 @@ class PreferenceUserqweb {
   PreferenceUserqweb._internal();
 
   //WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences _prefs;
+  late SharedPreferences _prefs;
 
   initPrefs() async {
     this._prefs = await SharedPreferences.getInstance();
   }
 
   // GET y SET del token
-  get token {
+  String get token {
     return _prefs.getString('token') ?? '';
+    //return _prefs.getString('token') ;
   }
 
   set token(String value) {
@@ -27,7 +28,7 @@ class PreferenceUserqweb {
   }
 
   // GET y SET del nombre
-  get nombre {
+  String get nombre {
     return _prefs.getString('nombre') ?? '';
   }
 
@@ -36,7 +37,7 @@ class PreferenceUserqweb {
   }
 
   // GET y SET de la última página
-  get ultimaPagina {
+  String get ultimaPagina {
     return _prefs.getString('ultimaPagina') ?? 'login';
   }
 

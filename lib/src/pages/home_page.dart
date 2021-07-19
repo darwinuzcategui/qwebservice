@@ -3,7 +3,7 @@ import 'package:qwebdoc/src/bloc/provider.dart';
 import 'package:qwebdoc/src/preferences_userQweb/preferences_userQweb.dart';
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key key}) : super(key: key);
+  const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

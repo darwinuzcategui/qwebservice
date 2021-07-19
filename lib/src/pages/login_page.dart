@@ -78,7 +78,7 @@ class LoginPage extends StatelessWidget {
                 hintText: 'Usuario Qweb',
                 labelText: 'USER',
                 counterText: snapshot.data,
-                errorText: snapshot.error),
+                errorText: snapshot.error as String?),
             //onChanged:(value)=>bloc.changeUserNameQweb(value),
             onChanged: bloc.changeUserNameQweb,
           ),
@@ -99,7 +99,7 @@ class LoginPage extends StatelessWidget {
                 icon: Icon(Icons.lock, color: Colors.blue),
                 labelText: 'Password',
                 //counterText: snapshot.data,
-                errorText: snapshot.error),
+                errorText: snapshot.error as String?),
             onChanged: bloc.changePasswordQweb,
           ),
         );

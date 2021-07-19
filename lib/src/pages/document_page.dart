@@ -1,8 +1,12 @@
 //import 'dart:async';
-import 'dart:io';
+//import 'dart:io';
+
+import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:file_picker/file_picker.dart';
+//import 'package:image_picker/image_picker.dart';
+//import 'package:image_picker/image_picker.dart';
 import 'package:qwebdoc/src/models/document_model.dart';
 import 'package:qwebdoc/src/providers/documnet_provider.dart';
 import 'package:qwebdoc/src/utilis/utilis.dart' as utils;
@@ -15,9 +19,13 @@ class DocumentPage extends StatefulWidget {
 class _DocumentPageState extends State<DocumentPage> {
   final formKey = GlobalKey<FormState>();
   final documnetProvider = new DocumnetProvider();
+  //final ImagePicker? imagePicker;
 
-  DocumentModel document = new DocumentModel();
-  File docuFile;
+  DocumentModel document = new DocumentModel(archivo: []);
+
+  // File? docuFile;
+
+  _DocumentPageState();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +64,7 @@ class _DocumentPageState extends State<DocumentPage> {
       decoration: InputDecoration(labelText: 'Nombre Documento'),
       onSaved: (value) => document.nombreArchivo = value,
       validator: (value) {
-        if (value.length < 2) {
+        if (value!.length < 2) {
           return 'Ingrese el nombre del Documento';
         } else {
           return null;
@@ -73,7 +81,7 @@ class _DocumentPageState extends State<DocumentPage> {
           InputDecoration(labelText: 'Email Usuario que recibe Documento'),
       onSaved: (value) => document.emailUsuarioRecibe = value,
       validator: (value) {
-        if (utils.isEmailQweb(value)) {
+        if (utils.isEmailQweb(value!)) {
           return null;
         } else {
           return 'Debe ser un Email Valido!';
@@ -101,14 +109,15 @@ class _DocumentPageState extends State<DocumentPage> {
   }
 
   void _submit() {
-    if (!formKey.currentState.validate()) return;
+    if (!formKey.currentState!.validate()) return;
 
-    if (formKey.currentState.validate()) {
-      formKey.currentState.save();
+    if (formKey.currentState!.validate()) {
+      formKey.currentState!.save();
       print('Paso Ok');
 
       print(document.nombreArchivo);
       print(document.emailUsuarioRecibe);
+      print(document.archivo);
       documnetProvider.crearDocument(document);
     }
   }
@@ -128,11 +137,34 @@ class _DocumentPageState extends State<DocumentPage> {
   }
 
   _selectDocument() async {
-    docuFile = await ImagePicker.pickImage(source: ImageSource.gallery);
+    print("entro aqui************************");
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      withData: true,
+      allowedExtensions: ['docx', 'doc', 'xls', 'xlsx', 'pdf', 'txt', 'odt'],
+    );
 
-    if (docuFile != null) {
-      //limpiar
+    if (result != null) {
+      PlatformFile file = result.files.first;
 
+      Uint8List? fileBytes = file.bytes;
+      String? fileExtension = file.extension;
+      document.archivo = fileBytes!;
+
+      //print(file.name);
+      print(fileBytes);
+      //print(document.archivo);
+      //  print(file.bytes);
+//      print(file.size);
+      print(fileExtension);
+      print(file.name);
+      // print(file.bytes);
+      print(file.size);
+      //print(file.extension);
+      print(file.path);
+      //    print(file.path);
+    } else {
+      // User canceled the picker
     }
 
     setState(() {});

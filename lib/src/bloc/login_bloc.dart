@@ -16,8 +16,8 @@ class LoginBloc with Validators {
       _passwordQwebController.stream.transform(validatePassword);
   // Stream<String> get tokenQwebStream => _tokenQwebController.stream;
 
-  Stream<bool> get formValidStream =>
-      Rx.combineLatest2(userNameQwebStream, passwordQwebStream, (a, b) => true);
+  Stream<bool> get formValidStream => Rx.combineLatest2(
+      userNameQwebStream, passwordQwebStream, (dynamic a, dynamic b) => true);
 
   // Inserto Valor al Stream
   // getter
@@ -32,8 +32,8 @@ class LoginBloc with Validators {
   //String get tokenQwb => _tokenQwebController.value;
 
   dispose() {
-    _userNameQwebController?.close();
-    _passwordQwebController?.close();
+    _userNameQwebController.close();
+    _passwordQwebController.close();
     //_tokenQwebController?.close();
   }
 }
