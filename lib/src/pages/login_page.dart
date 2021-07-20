@@ -125,7 +125,7 @@ class LoginPage extends StatelessWidget {
         return TextButton(
           style: flatButtonStyle,
           onPressed: snapshot.hasData ? () => _login(bloc, context) : null,
-          child: Text('Ingrese'),
+          child: Text("Ingresar"),
         );
       },
     );

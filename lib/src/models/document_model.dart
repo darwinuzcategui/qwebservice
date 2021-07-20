@@ -13,23 +13,27 @@ class DocumentModel {
   DocumentModel({
     this.nombreArchivo,
     this.emailUsuarioRecibe,
+    this.extensionArchivo,
     required this.archivo,
-   // this.archivo,
+    // this.archivo,
   });
 
   String? nombreArchivo = '';
   String? emailUsuarioRecibe = 'darwin.uzcategui1973@gmail.com';
+  String? extensionArchivo;
   List<int> archivo;
 
   factory DocumentModel.fromJson(Map<String, dynamic> json) => DocumentModel(
         nombreArchivo: json["nombreArchivo"],
         emailUsuarioRecibe: json["emailUsuarioRecibe"],
+        extensionArchivo: json["extensionArchivo"],
         archivo: List<int>.from(json["archivo"].map((x) => x)),
       );
 
   Map<String, dynamic> toJson() => {
         "nombreArchivo": nombreArchivo,
         "emailUsuarioRecibe": emailUsuarioRecibe,
+        "extensionArchivo": extensionArchivo,
         "archivo": List<dynamic>.from(archivo.map((x) => x)),
       };
 }

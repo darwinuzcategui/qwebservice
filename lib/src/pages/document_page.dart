@@ -1,6 +1,7 @@
 //import 'dart:async';
 //import 'dart:io';
 
+//import 'dart:js';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:qwebdoc/src/models/document_model.dart';
 import 'package:qwebdoc/src/providers/documnet_provider.dart';
 import 'package:qwebdoc/src/utilis/utilis.dart' as utils;
+// import 'package:rxdart/streams.dart';
 
 class DocumentPage extends StatefulWidget {
   @override
@@ -48,7 +50,7 @@ class _DocumentPageState extends State<DocumentPage> {
                 _mostrarDocuments(),
                 _createNameFile(),
                 _createEmailUserWhoRecibeDocument(),
-                _createButton()
+                _createButton(context)
               ],
             ),
           ),
@@ -64,10 +66,10 @@ class _DocumentPageState extends State<DocumentPage> {
       decoration: InputDecoration(labelText: 'Nombre Documento'),
       onSaved: (value) => document.nombreArchivo = value,
       validator: (value) {
-        if (value!.length < 2) {
-          return 'Ingrese el nombre del Documento';
-        } else {
+        if (utils.isNombreArchivoSinExtesion(value!)) {
           return null;
+        } else {
+          return 'No debe tener caractres especiales y sin la Extesion';
         }
       },
     );
@@ -90,7 +92,7 @@ class _DocumentPageState extends State<DocumentPage> {
     );
   }
 
-  Widget _createButton() {
+  Widget _createButton(BuildContext context) {
     return ElevatedButton.icon(
       icon: Icon(
         Icons.save_alt,
@@ -98,6 +100,7 @@ class _DocumentPageState extends State<DocumentPage> {
         size: 24.0,
       ),
       label: Text('Guardar'),
+      //snapshot.hasData ? () => _login(bloc, context) : null,
       onPressed: _submit,
       style: ElevatedButton.styleFrom(
           primary: Colors.green.shade300,
@@ -108,7 +111,7 @@ class _DocumentPageState extends State<DocumentPage> {
     );
   }
 
-  void _submit() {
+  _submit() async {
     if (!formKey.currentState!.validate()) return;
 
     if (formKey.currentState!.validate()) {
@@ -118,19 +121,45 @@ class _DocumentPageState extends State<DocumentPage> {
       print(document.nombreArchivo);
       print(document.emailUsuarioRecibe);
       print(document.archivo);
-      documnetProvider.crearDocument(document);
+      print(document.extensionArchivo);
+      if (document.extensionArchivo == null) {
+        utils.showAlertQweb(context, "Falta carga archivo");
+        print("cargue archivo");
+
+        setState(() {});
+      }
+      if (document.extensionArchivo != null) {
+        //FocusScope.of(context).unfocus();
+        Map info = await documnetProvider.crearDocument(document);
+        //await userQwebProvider.userQweb(bloc.userNameQweb, bloc.passwordQwb);
+
+        if (info["ok"]) {
+          utils.showAlertQweb(context, "Todo OK excelente");
+          Navigator.pushReplacementNamed(context, 'home');
+        } else {
+          utils.showAlertQweb(context, info["mensaje"]);
+        }
+      }
+
+      // documnetProvider.crearDocument(document);
     }
   }
 
   Widget _mostrarDocuments() {
-    if (document.nombreArchivo != null) {
+    if (document.extensionArchivo != null) {
       // ignore: todo
       //TODO: voy hacer esto luego
-      return Container();
+      //return Container();
+      return Image(
+        //Constants.ASSETS_IMAGES + "logo.png", "logo.png",
+        image: AssetImage('assets/' + document.extensionArchivo! + '.png'),
+        height: 250.0,
+        fit: BoxFit.cover,
+      );
     } else {
       return Image(
-        image: AssetImage('assets/no-image.png'),
-        height: 300.0,
+        image: AssetImage('assets/no-document.png'),
+        height: 250.0,
         fit: BoxFit.cover,
       );
     }
@@ -141,7 +170,16 @@ class _DocumentPageState extends State<DocumentPage> {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       withData: true,
-      allowedExtensions: ['docx', 'doc', 'xls', 'xlsx', 'pdf', 'txt', 'odt'],
+      allowedExtensions: [
+        'docx',
+        'doc',
+        'xls',
+        'xlsx',
+        'pdf',
+        'txt',
+        'odt',
+        'ods'
+      ],
     );
 
     if (result != null) {
@@ -150,6 +188,7 @@ class _DocumentPageState extends State<DocumentPage> {
       Uint8List? fileBytes = file.bytes;
       String? fileExtension = file.extension;
       document.archivo = fileBytes!;
+      document.extensionArchivo = fileExtension;
 
       //print(file.name);
       print(fileBytes);

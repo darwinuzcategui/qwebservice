@@ -1,12 +1,21 @@
 import 'dart:convert';
+import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:qwebdoc/src/preferences_userQweb/preferences_userQweb.dart';
 //import 'package:shared_preferences/shared_preferences.dart';
 
-class UserQwebProvider {
+class UserQwebProvider extends ChangeNotifier {
   //final String _qwebToken = '38-251-236-49-55-138-50-213';
   var prefs = new PreferenceUserqweb();
   String get _qwebToken => prefs.token; //'4-223-55-37-16-49-41-176';
+
+  bool _isLoading = false;
+  bool get isLoading => _isLoading;
+
+  set isLoading(bool value) {
+    _isLoading = value;
+    notifyListeners();
+  }
 
   // ignore: missing_return
 
@@ -16,11 +25,11 @@ class UserQwebProvider {
     var client = http.Client();
     // rutas servidores
     //http://70.36.114.168:8095/
-    //http://192.168.1.108:8080/
+    //http://192.168.0.6:8080/
 
     try {
       final resp = await http.post(
-          Uri.parse('http://192.168.0.6:8095/qweb/obtenerUsuarioWS.do'),
+          Uri.parse('http://70.36.114.168:8095/qweb/obtenerUsuarioWS.do'),
           headers: <String, String>{
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': _qwebToken,
@@ -28,6 +37,7 @@ class UserQwebProvider {
           body: json.encode(authData));
 
       if (resp.statusCode == 200) {
+        _isLoading = true;
         Map<String, dynamic> decodedResp = json.decode(resp.body);
         print(decodedResp);
 
