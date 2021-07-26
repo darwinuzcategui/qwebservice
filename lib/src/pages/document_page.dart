@@ -131,7 +131,6 @@ class _DocumentPageState extends State<DocumentPage> {
       if (document.extensionArchivo != null) {
         //FocusScope.of(context).unfocus();
         Map info = await documnetProvider.crearDocument(document);
-        //await userQwebProvider.userQweb(bloc.userNameQweb, bloc.passwordQwb);
 
         if (info["ok"]) {
           utils.showAlertQweb(context, "Todo OK Excelente");

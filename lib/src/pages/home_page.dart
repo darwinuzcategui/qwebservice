@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:qwebdoc/src/bloc/provider.dart';
 import 'package:qwebdoc/src/preferences_userQweb/preferences_userQweb.dart';
-//import 'package:qwebdoc/src/providers/userQweb_provider.dart';
+import 'package:qwebdoc/src/providers/userQweb_provider.dart';
 //
 
 class HomePage extends StatelessWidget {
@@ -10,13 +10,9 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final bloc = Provider.of(context);
-    // final userQwebProvider =
-    //    Provider.of<UserQwebProvider>(context, listen: false);
-    //final userQwebProvider = Provider.of<UserQwebProvider>(listen: false);
-
-    //final authService = Provider.of<AuthService>(context, listen: false);
-
     final prefs = new PreferenceUserqweb();
+    final userQwebProvider = new UserQwebProvider();
+    //final user
 
     return Scaffold(
       appBar: AppBar(
@@ -24,7 +20,8 @@ class HomePage extends StatelessWidget {
         leading: IconButton(
           icon: Icon(Icons.login_outlined),
           onPressed: () {
-            // userQwebProvider.logout();
+            userQwebProvider.logout();
+            Navigator.pushReplacementNamed(context, 'login');
           },
         ),
       ),
