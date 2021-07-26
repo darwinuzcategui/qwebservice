@@ -6,8 +6,10 @@ import 'package:http/http.dart' as http;
 import 'package:qwebdoc/src/preferences_userQweb/preferences_userQweb.dart';
 
 class DocumnetProvider {
-  //final String _url = 'http://192.168.0.6:8080';
-  final String _url = 'http://70.36.114.168:8095';
+  String get _url => prefs.urlbase.toString();
+
+  ///'http://192.168.1.108:8080';
+  //final String _url = 'http://70.36.114.168:8095';
   var prefs = new PreferenceUserqweb();
   String get _qwebToken => prefs.token;
 
@@ -17,7 +19,8 @@ class DocumnetProvider {
         "." +
         document.extensionArchivo!.trim();
 
-    print(nombreArchivoConExtesion);
+    //print(nombreArchivoConExtesion);
+    //print(document.nombreArchivo);
 
     final documenJson = {
       'nombreArchivo': nombreArchivoConExtesion,

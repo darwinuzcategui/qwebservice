@@ -21,7 +21,9 @@ class DocumentPage extends StatefulWidget {
 class _DocumentPageState extends State<DocumentPage> {
   final formKey = GlobalKey<FormState>();
   final documnetProvider = new DocumnetProvider();
-  //final ImagePicker? imagePicker;
+  final nombreArchivoControler = TextEditingController();
+  String nombreArchivo = "debe colocar un nombre archivo valido.sin extension";
+  //nombreArchivoControler.text= nombreArchivo;
 
   DocumentModel document = new DocumentModel(archivo: []);
 
@@ -49,7 +51,9 @@ class _DocumentPageState extends State<DocumentPage> {
               children: [
                 _mostrarDocuments(),
                 _createNameFile(),
+                _createComentario(),
                 _createEmailUserWhoRecibeDocument(),
+                SizedBox(width: 15.0, height: 15.0),
                 _createButton(context)
               ],
             ),
@@ -61,7 +65,8 @@ class _DocumentPageState extends State<DocumentPage> {
 
   Widget _createNameFile() {
     return TextFormField(
-      initialValue: document.nombreArchivo,
+      controller: nombreArchivoControler,
+      //initialValue: document.nombreArchivo,
       textCapitalization: TextCapitalization.sentences,
       decoration: InputDecoration(labelText: 'Nombre Documento'),
       onSaved: (value) => document.nombreArchivo = value,
@@ -116,15 +121,10 @@ class _DocumentPageState extends State<DocumentPage> {
 
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
-      print('Paso Ok');
 
-      print(document.nombreArchivo);
-      print(document.emailUsuarioRecibe);
-      print(document.archivo);
-      print(document.extensionArchivo);
       if (document.extensionArchivo == null) {
-        utils.showAlertQweb(context, "Falta carga archivo");
-        print("cargue archivo");
+        utils.showAlertQweb(context, "Falta cargar el archivo!");
+        print("Falta cargar el archivo!");
 
         setState(() {});
       }
@@ -134,7 +134,7 @@ class _DocumentPageState extends State<DocumentPage> {
         //await userQwebProvider.userQweb(bloc.userNameQweb, bloc.passwordQwb);
 
         if (info["ok"]) {
-          utils.showAlertQweb(context, "Todo OK excelente");
+          utils.showAlertQweb(context, "Todo OK Excelente");
           Navigator.pushReplacementNamed(context, 'home');
         } else {
           utils.showAlertQweb(context, info["mensaje"]);
@@ -152,7 +152,8 @@ class _DocumentPageState extends State<DocumentPage> {
       //return Container();
       return Image(
         //Constants.ASSETS_IMAGES + "logo.png", "logo.png",
-        image: AssetImage('assets/' + document.extensionArchivo! + '.png'),
+        image: AssetImage(
+            'assets/' + document.extensionArchivo!.toLowerCase() + '.png'),
         height: 250.0,
         fit: BoxFit.cover,
       );
@@ -166,7 +167,6 @@ class _DocumentPageState extends State<DocumentPage> {
   }
 
   _selectDocument() async {
-    print("entro aqui************************");
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       withData: true,
@@ -178,136 +178,42 @@ class _DocumentPageState extends State<DocumentPage> {
         'pdf',
         'txt',
         'odt',
-        'ods'
+        'ods',
+        'png',
+        'jpg',
+        'jpeg'
       ],
     );
 
     if (result != null) {
       PlatformFile file = result.files.first;
-
       Uint8List? fileBytes = file.bytes;
       String? fileExtension = file.extension;
+      String nombreArchivo = file.name;
+      nombreArchivo = nombreArchivo.split(".")[0];
       document.archivo = fileBytes!;
       document.extensionArchivo = fileExtension;
-
-      //print(file.name);
-      print(fileBytes);
-      //print(document.archivo);
-      //  print(file.bytes);
-//      print(file.size);
-      print(fileExtension);
-      print(file.name);
-      // print(file.bytes);
-      print(file.size);
-      //print(file.extension);
-      print(file.path);
-      //    print(file.path);
+      nombreArchivoControler.text = nombreArchivo;
     } else {
       // User canceled the picker
     }
 
     setState(() {});
   }
-}
 
-
-
-/*
- return ElevatedButton.icon(
-        onPressed: () {},
-        icon: Icon(Icons.save_alt),
-        label: Text('Guardar'));
-*/
-/*
-class DocumentPage extends StatelessWidget {
-  final formKey = GlobalKey<FormState>();
-  // const DocumentPage({Key key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Document Service'),
-        actions: <Widget>[
-          IconButton(
-              onPressed: () {}, icon: Icon(Icons.document_scanner_sharp)),
-          IconButton(onPressed: () {}, icon: Icon(Icons.camera_alt))
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          padding: EdgeInsets.all(15.0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                _createNameFile(),
-                _createEmailUserWhoRecibeDocument(),
-                _createButton()
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _createNameFile() {
+  Widget _createComentario() {
     return TextFormField(
-      textCapitalization: TextCapitalization.sentences,
-      decoration: InputDecoration(labelText: 'Nombre Documento'),
+      initialValue: document.comentario,
+      keyboardType: TextInputType.multiline,
+      decoration: InputDecoration(labelText: 'Comentario del Archivo Enviado'),
+      onSaved: (value) => document.comentario = value,
       validator: (value) {
-        if (value.length < 2) {
-          return 'Ingrese el nombre del Documento';
-        } else {
+        if (utils.isComentario(value!)) {
           return null;
+        } else {
+          return 'Comentario debe Tener por Lo Menos 5 Caracteres y max 100!';
         }
       },
     );
   }
-
-  Widget _createEmailUserWhoRecibeDocument() {
-    return TextFormField(
-      keyboardType: TextInputType.emailAddress,
-      decoration:
-          InputDecoration(labelText: 'Email Usuario que recibe Documento'),
-      validator: (value) {
-        if (utils.isEmailQweb(value)) {
-          return null;
-        } else {
-          return 'Debe ser un Email Valido!';
-        }
-      },
-    );
-  }
-
-  Widget _createButton() {
-    return ElevatedButton.icon(
-      icon: Icon(
-        Icons.save_alt,
-        color: Colors.black45,
-        size: 24.0,
-      ),
-      label: Text('Guardar'),
-      onPressed: () {
-        _submit();
-        print('Pressed');
-      },
-      style: ElevatedButton.styleFrom(
-          primary: Colors.green.shade300,
-          shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(20.0),
-          ),
-          shadowColor: Colors.amberAccent),
-    );
-  }
-
-  void _submit() {
-    formKey.currentState.validate();
-  }
 }
-
-
-
-
-*/

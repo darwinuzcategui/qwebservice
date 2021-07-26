@@ -3,6 +3,7 @@ import 'package:qwebdoc/src/bloc/provider.dart';
 import 'package:qwebdoc/src/pages/home_page.dart';
 import 'package:qwebdoc/src/pages/login_page.dart';
 import 'package:qwebdoc/src/pages/document_page.dart';
+import 'package:qwebdoc/src/pages/registro_pag.dart';
 import 'src/preferences_userQweb/preferences_userQweb.dart';
 
 void main() async {
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
           'login': (BuildContext context) => LoginPage(),
           'home': (BuildContext context) => HomePage(),
           'document': (BuildContext context) => DocumentPage(),
+          'cuenta': (BuildContext context) => RegistroPage(),
         },
         theme: ThemeData(primaryColor: Colors.green.shade300),
       ),

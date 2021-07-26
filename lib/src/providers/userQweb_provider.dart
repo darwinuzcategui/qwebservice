@@ -1,11 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:qwebdoc/src/preferences_userQweb/preferences_userQweb.dart';
-//import 'package:shared_preferences/shared_preferences.dart';
 
 class UserQwebProvider extends ChangeNotifier {
   //final String _qwebToken = '38-251-236-49-55-138-50-213';
+  final storage = new FlutterSecureStorage();
   var prefs = new PreferenceUserqweb();
   String get _qwebToken => prefs.token; //'4-223-55-37-16-49-41-176';
 
@@ -21,6 +22,7 @@ class UserQwebProvider extends ChangeNotifier {
 
   Future<Map<String, dynamic>> userQweb(String usuario, String password) async {
     final authData = {'usuario': usuario, 'clave': password};
+    final String _url = prefs.urlbase; //'http://192.168.1.108:8080';
 
     var client = http.Client();
     // rutas servidores
@@ -28,8 +30,7 @@ class UserQwebProvider extends ChangeNotifier {
     //http://192.168.0.6:8080/
 
     try {
-      final resp = await http.post(
-          Uri.parse('http://70.36.114.168:8095/qweb/obtenerUsuarioWS.do'),
+      final resp = await http.post(Uri.parse('$_url/qweb/obtenerUsuarioWS.do'),
           headers: <String, String>{
             'Content-Type': 'application/x-www-form-urlencoded',
             'Authorization': _qwebToken,
@@ -48,6 +49,10 @@ class UserQwebProvider extends ChangeNotifier {
           prefs.nombre = decodedResp['nombres'].toString() +
               " " +
               decodedResp['Apellidos'].toString();
+
+              // grabar un token seguro
+          await storage.write(
+              key: 'token', value: decodedResp['token'].toString());
           return {'ok': true, 'mensaje': decodedResp['token']};
         } else {
           return {'ok': false, 'mensaje': 'Error en Token  '};
@@ -64,5 +69,10 @@ class UserQwebProvider extends ChangeNotifier {
     } finally {
       client.close();
     }
+  }
+
+  Future logout() async {
+    await storage.delete(key: 'token');
+    return;
   }
 }

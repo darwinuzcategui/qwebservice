@@ -1,26 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:qwebdoc/src/bloc/provider.dart';
+import 'package:qwebdoc/src/preferences_userQweb/preferences_userQweb.dart';
 import 'package:qwebdoc/src/providers/userQweb_provider.dart';
-import 'package:qwebdoc/src/utilis/utilis.dart';
+import 'package:qwebdoc/src/utilis/utilis.dart' as util;
 
-class LoginPage extends StatelessWidget {
+class RegistroPage extends StatefulWidget {
+  @override
+  State<RegistroPage> createState() => _RegistroPageState();
+}
+
+class _RegistroPageState extends State<RegistroPage> {
   final userQwebProvider = new UserQwebProvider();
-  //const LoginPage({Key key}) : super(key: key);
+
+  var prefs = new PreferenceUserqweb();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          _createBackgroundQweb(context),
-          _loginForm(context),
+          _crearFondo(context),
+          _registerForm(context),
         ],
       ),
     );
   }
 
-  Widget _loginForm(BuildContext context) {
+  Widget _registerForm(BuildContext context) {
     final bloc = Provider.of(context);
     final size = MediaQuery.of(context).size;
 
@@ -47,72 +54,70 @@ class LoginPage extends StatelessWidget {
                 ]),
             child: Column(
               children: <Widget>[
-                Text(
-                  'Ingreso',
-                  style: TextStyle(fontSize: 20.0),
-                ),
+                Text('Crear nueva conexion Qweb',
+                    style: TextStyle(fontSize: 20.0)),
+                SizedBox(height: 10.0),
+                _crearHttp(bloc),
+                SizedBox(height: 10.0),
+                _crearPuerto(bloc),
                 SizedBox(height: 15.0),
-                _createUser(bloc),
-                SizedBox(height: 15.0),
-                _createPassword(bloc),
-                SizedBox(height: 15.0),
-                _createButton(bloc),
+                _crearBoton(bloc),
               ],
             ),
           ),
           TextButton(
-              onPressed: () =>
-                  Navigator.pushReplacementNamed(context, 'cuenta'),
-              child: Text('Crear una nueva de Conexion Qweb')),
+              onPressed: () => Navigator.pushReplacementNamed(context, 'login'),
+              child: Text('Ya tienes una Conexion registrada ?')),
           SizedBox(height: 100.0)
         ],
       ),
     );
   }
 
-  Widget _createUser(LoginBloc bloc) {
+  Widget _crearHttp(LoginBloc bloc) {
     return StreamBuilder(
-      stream: bloc.userNameQwebStream,
+      stream: bloc.httpQwebStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: TextField(
-            keyboardType: TextInputType.text,
+            keyboardType: TextInputType.url,
             decoration: InputDecoration(
-                icon: Icon(Icons.supervised_user_circle, color: Colors.blue),
-                hintText: 'Usuario Qweb',
-                labelText: 'USER',
+                icon: Icon(Icons.http, color: Colors.blue),
+                hintText: 'Ejm http://192.168.1.108',
+                labelText: 'Ruta de Qweb ',
                 counterText: snapshot.data,
                 errorText: snapshot.error as String?),
             //onChanged:(value)=>bloc.changeUserNameQweb(value),
-            onChanged: bloc.changeUserNameQweb,
+            onChanged: bloc.changeHttpQweb,
           ),
         );
       },
     );
   }
 
-  Widget _createPassword(LoginBloc bloc) {
+  Widget _crearPuerto(LoginBloc bloc) {
     return StreamBuilder(
-      stream: bloc.passwordQwebStream,
+      stream: bloc.puertoQwebStream,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return Container(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: TextField(
-            obscureText: true,
+            keyboardType: TextInputType.number,
             decoration: InputDecoration(
-                icon: Icon(Icons.lock, color: Colors.blue),
-                labelText: 'Password',
-                //counterText: snapshot.data,
+                icon: Icon(Icons.pin_outlined, color: Colors.blue),
+                hintText: 'Ejm 8080',
+                labelText: 'Puerto Qweb',
+                counterText: snapshot.data,
                 errorText: snapshot.error as String?),
-            onChanged: bloc.changePasswordQweb,
+            onChanged: bloc.changePuertoQweb,
           ),
         );
       },
     );
   }
 
-  Widget _createButton(LoginBloc bloc) {
+  Widget _crearBoton(LoginBloc bloc) {
     final ButtonStyle flatButtonStyle = TextButton.styleFrom(
       primary: Color.fromRGBO(121, 162, 198, 1.0),
       // backgroundColor: Color.fromRGBO(92, 224, 132, 1.0),
@@ -125,31 +130,46 @@ class LoginPage extends StatelessWidget {
     );
 
     return StreamBuilder(
-      stream: bloc.formValidStream,
+      stream: bloc.formValidStream1,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         return TextButton(
           style: flatButtonStyle,
-          onPressed: snapshot.hasData ? () => _login(bloc, context) : null,
-          child: Text("Ingresar"),
+          onPressed: snapshot.hasData ? () => _register(bloc, context) : null,
+          child: Text("Crear"),
         );
       },
     );
   }
 
-  _login(LoginBloc bloc, BuildContext context) async {
-    Map info =
-        await userQwebProvider.userQweb(bloc.userNameQweb, bloc.passwordQwb);
+  _register(LoginBloc bloc, BuildContext context) async {
+    print('===========================');
+    print('http: ${bloc.httpQwb} ');
+    print('Puerto: ${bloc.puertoQwb} ');
+    print('===========================');
+    prefs.urlbase = '${bloc.httpQwb}:${bloc.puertoQwb}';
+    print(prefs.urlbase);
 
+    //final info = await .nuevoUsuario(bloc.email, bloc.clave);
 
-    if (info["ok"]) {
-      //showAlertQweb(context, info["mensaje"]);
-      Navigator.pushReplacementNamed(context, 'home');
+    // ignore: unnecessary_null_comparison
+    if (bloc.httpQwb == null) {
+      util.showAlertQweb(context, "no Puede ser nula o vacia ruta");
     } else {
-      showAlertQweb(context, info["mensaje"]);
+      //final info = "ok";
+      Navigator.pushReplacementNamed(context, 'login');
     }
+
+/*
+    if (info['ok']) {
+      Navigator.pushReplacementNamed(context, 'inicio');
+    } else {
+      util.showAlertQweb(context, info['mensaje']);
+    }
+*/
+    // Navigator.pushReplacementNamed(context, 'inicio');
   }
 
-  Widget _createBackgroundQweb(BuildContext context) {
+  Widget _crearFondo(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final backgroundQweb = Container(
       height: size.height * 0.40,

@@ -44,4 +44,13 @@ class PreferenceUserqweb {
   set ultimaPagina(String value) {
     _prefs.setString('ultimaPagina', value);
   }
+
+  // GET y SET del urlBase
+  String get urlbase {
+    return _prefs.getString('urlbase') ?? 'http://70.36.114.168:8095';
+  }
+
+  set urlbase(String value) {
+    _prefs.setString('urlbase', value);
+  }
 }
