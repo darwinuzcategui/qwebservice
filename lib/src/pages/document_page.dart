@@ -1,7 +1,3 @@
-//import 'dart:async';
-//import 'dart:io';
-
-//import 'dart:js';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -9,6 +5,7 @@ import 'package:file_picker/file_picker.dart';
 //import 'package:image_picker/image_picker.dart';
 //import 'package:image_picker/image_picker.dart';
 import 'package:qwebdoc/src/models/document_model.dart';
+import 'package:qwebdoc/src/preferences_userQweb/preferences_userQweb.dart';
 import 'package:qwebdoc/src/providers/documnet_provider.dart';
 import 'package:qwebdoc/src/utilis/utilis.dart' as utils;
 // import 'package:rxdart/streams.dart';
@@ -22,6 +19,8 @@ class _DocumentPageState extends State<DocumentPage> {
   final formKey = GlobalKey<FormState>();
   final documnetProvider = new DocumnetProvider();
   final nombreArchivoControler = TextEditingController();
+  final prefs = new PreferenceUserqweb();
+  bool grabando = false;
   String nombreArchivo = "debe colocar un nombre archivo valido.sin extension";
   //nombreArchivoControler.text= nombreArchivo;
 
@@ -54,7 +53,8 @@ class _DocumentPageState extends State<DocumentPage> {
                 _createComentario(),
                 _createEmailUserWhoRecibeDocument(),
                 SizedBox(width: 15.0, height: 15.0),
-                _createButton(context)
+                _createButton(context),
+                //this.grabando ? CircularProgressIndicator(color: Colors.blue)  : SizedBox(width: 1.0, height: 1.0),
               ],
             ),
           ),
@@ -98,50 +98,71 @@ class _DocumentPageState extends State<DocumentPage> {
   }
 
   Widget _createButton(BuildContext context) {
-    return ElevatedButton.icon(
-      icon: Icon(
-        Icons.save_alt,
-        color: Colors.black45,
-        size: 24.0,
-      ),
-      label: Text('Guardar'),
-      //snapshot.hasData ? () => _login(bloc, context) : null,
-      onPressed: _submit,
-      style: ElevatedButton.styleFrom(
-          primary: Colors.green.shade300,
-          shape: new RoundedRectangleBorder(
-            borderRadius: new BorderRadius.circular(20.0),
-          ),
-          shadowColor: Colors.amberAccent),
-    );
+    return this.grabando
+        ? CircularProgressIndicator(color: Colors.green[400])
+        : ElevatedButton.icon(
+            icon: Icon(
+              Icons.save_alt,
+              color: Colors.black45,
+              size: 24.0,
+            ),
+            label: Text('Guardar'),
+            onPressed: _submit,
+            style: ElevatedButton.styleFrom(
+                primary: Colors.green.shade300,
+                shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(20.0),
+                ),
+                shadowColor: Colors.amberAccent),
+          );
   }
 
   _submit() async {
-    if (!formKey.currentState!.validate()) return;
+    grabando = false;
+    setState(() {});
+
+    if (!formKey.currentState!.validate()) {
+      grabando = false;
+      setState(() {});
+
+      return;
+    }
 
     if (formKey.currentState!.validate()) {
       formKey.currentState!.save();
 
+      grabando = true;
+      //print("Grabando!!!");
+
       if (document.extensionArchivo == null) {
         utils.showAlertQweb(context, "Falta cargar el archivo!");
-        print("Falta cargar el archivo!");
+        // print("Falta cargar el archivo!");
 
-        setState(() {});
+        setState(() {
+          print(" Grabando!!!");
+        });
       }
       if (document.extensionArchivo != null) {
         //FocusScope.of(context).unfocus();
+
         Map info = await documnetProvider.crearDocument(document);
 
         if (info["ok"]) {
+          grabando = false;
+          //print("**************");
+          //print("************** ya  Grabo!!");
+          prefs.mensaje = "Archivo Grabado: ${document.nombreArchivo}";
           utils.showAlertQweb(context, "Todo OK Excelente");
           Navigator.pushReplacementNamed(context, 'home');
         } else {
+          print("fallo la grabacion!!");
+
+          grabando = false;
           utils.showAlertQweb(context, info["mensaje"]);
         }
       }
-
-      // documnetProvider.crearDocument(document);
     }
+    setState(() {});
   }
 
   Widget _mostrarDocuments() {

@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
           Divider(),
           Text('Nombre : ${prefs.nombre}'),
           Divider(),
-          Text('Token  : ${prefs.token}')
+          Text('${prefs.mensaje}')
         ],
       ),
       floatingActionButton: _createButton(context),

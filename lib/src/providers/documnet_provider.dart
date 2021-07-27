@@ -38,11 +38,11 @@ class DocumnetProvider {
           body: json.encode(documenJson));
       if (resp.statusCode == 200) {
         //final resp = await http.post(url, body: documentModelToJson(document));
-        print(documentModelToJson(document));
-        print("*************************");
-        print(json.encode(documenJson));
-        final decodedData = json.decode(resp.body);
-        print(decodedData);
+        //print(documentModelToJson(document));
+        //print("*************************");
+        //print(json.encode(documenJson));
+        //final decodedData = json.decode(resp.body);
+        //print(decodedData);
 
         return {'ok': true, 'mensaje': "todo paso ok"};
       } else {

@@ -1,12 +1,12 @@
 import 'dart:convert';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+//import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:qwebdoc/src/preferences_userQweb/preferences_userQweb.dart';
 
 class UserQwebProvider extends ChangeNotifier {
   //final String _qwebToken = '38-251-236-49-55-138-50-213';
-  final storage = new FlutterSecureStorage();
+  //final storage = new FlutterSecureStorage();
   var prefs = new PreferenceUserqweb();
   String get _qwebToken => prefs.token; //'4-223-55-37-16-49-41-176';
 
@@ -50,9 +50,9 @@ class UserQwebProvider extends ChangeNotifier {
               " " +
               decodedResp['Apellidos'].toString();
 
-              // grabar un token seguro
-          await storage.write(
-              key: 'token', value: decodedResp['token'].toString());
+          // grabar un token seguro
+          //await storage.write(
+          //  key: 'token', value: decodedResp['token'].toString());
           return {'ok': true, 'mensaje': decodedResp['token']};
         } else {
           return {'ok': false, 'mensaje': 'Error en Token  '};
@@ -71,8 +71,9 @@ class UserQwebProvider extends ChangeNotifier {
     }
   }
 
-  Future logout() async {
-    await storage.delete(key: 'token');
+  void logout() {
+    prefs.token = "";
+    prefs.mensaje = "";
     return;
   }
 }

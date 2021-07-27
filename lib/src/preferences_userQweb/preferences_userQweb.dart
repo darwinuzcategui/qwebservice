@@ -53,4 +53,13 @@ class PreferenceUserqweb {
   set urlbase(String value) {
     _prefs.setString('urlbase', value);
   }
+
+  // GET y SET de la última página
+  String get mensaje {
+    return _prefs.getString('mensaje') ?? '*.*';
+  }
+
+  set mensaje(String value) {
+    _prefs.setString('mensaje', value);
+  }
 }
