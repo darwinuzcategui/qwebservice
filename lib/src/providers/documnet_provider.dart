@@ -19,12 +19,10 @@ class DocumnetProvider {
         "." +
         document.extensionArchivo!.trim();
 
-    //print(nombreArchivoConExtesion);
-    //print(document.nombreArchivo);
-
     final documenJson = {
       'nombreArchivo': nombreArchivoConExtesion,
       'emailUsuarioRecibe': document.emailUsuarioRecibe,
+      'descript': document.comentario,
       'archivo': document.archivo
     };
     var client = http.Client();
