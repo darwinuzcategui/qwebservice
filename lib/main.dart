@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final prefs = new PreferenceUserqweb();
     //print("***** en clase My app*** ");
-    //print(prefs.token);
+    print(prefs.token);
 
     return Provider(
       child: MaterialApp(
