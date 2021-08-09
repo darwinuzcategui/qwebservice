@@ -1,4 +1,4 @@
-package com.example.qwebdoc
+package com.qweb.qwebservice
 
 import io.flutter.embedding.android.FlutterActivity
 
