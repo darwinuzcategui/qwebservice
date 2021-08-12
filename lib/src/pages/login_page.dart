@@ -63,7 +63,7 @@ class LoginPage extends StatelessWidget {
           TextButton(
               onPressed: () =>
                   Navigator.pushReplacementNamed(context, 'cuenta'),
-              child: Text('Crear una nueva de Conexion Qweb')),
+              child: Text('Cambiar una nueva de Conexion Qweb')),
           SizedBox(height: 100.0)
         ],
       ),
@@ -78,13 +78,15 @@ class LoginPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: TextField(
             keyboardType: TextInputType.text,
+          
+            textCapitalization: TextCapitalization.characters,
             decoration: InputDecoration(
                 icon: Icon(Icons.supervised_user_circle, color: Colors.blue),
                 hintText: 'Usuario Qweb',
                 labelText: 'USER',
                 counterText: snapshot.data,
                 errorText: snapshot.error as String?),
-            //onChanged:(value)=>bloc.changeUserNameQweb(value),
+            //onChanged: (value) => bloc.changeUserNameQweb(value),
             onChanged: bloc.changeUserNameQweb,
           ),
         );
@@ -139,7 +141,6 @@ class LoginPage extends StatelessWidget {
   _login(LoginBloc bloc, BuildContext context) async {
     Map info =
         await userQwebProvider.userQweb(bloc.userNameQweb, bloc.passwordQwb);
-
 
     if (info["ok"]) {
       //showAlertQweb(context, info["mensaje"]);

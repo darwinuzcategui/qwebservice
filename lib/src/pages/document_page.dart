@@ -202,9 +202,7 @@ class _DocumentPageState extends State<DocumentPage> {
         'png',
         'jpg',
         'jpeg',
-        'mpp',
         'pptx',
-        'vsdx'
       ],
     );
 

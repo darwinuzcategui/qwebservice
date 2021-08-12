@@ -36,7 +36,7 @@ class LoginBloc with Validators {
 
   // obtener el ultimo valor ingresado a los streams
 
-  String get userNameQweb => _userNameQwebController.value;
+  String get userNameQweb => _userNameQwebController.value.toLowerCase();
   String get passwordQwb => _passwordQwebController.value;
   String get httpQwb => _httpQwebController.value;
   String get puertoQwb => _puertoQwebController.value;
