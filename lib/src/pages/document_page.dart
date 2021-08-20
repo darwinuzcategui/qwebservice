@@ -51,6 +51,7 @@ class _DocumentPageState extends State<DocumentPage> {
                 _mostrarDocuments(),
                 _createNameFile(),
                 _createComentario(),
+                _createPalabraClave(),
                 _createEmailUserWhoRecibeDocument(),
                 SizedBox(width: 15.0, height: 15.0),
                 _createButton(context),
@@ -235,6 +236,16 @@ class _DocumentPageState extends State<DocumentPage> {
           return 'Comentario debe Tener por Lo Menos 5 Caracteres y max 100!';
         }
       },
+    );
+  }
+
+  Widget _createPalabraClave() {
+    return TextFormField(
+      initialValue: document.palabraClave,
+      keyboardType: TextInputType.multiline,
+      decoration:
+          InputDecoration(labelText: 'Palabra Clave del Archivo Enviado'),
+      onSaved: (value) => document.palabraClave = value,
     );
   }
 }

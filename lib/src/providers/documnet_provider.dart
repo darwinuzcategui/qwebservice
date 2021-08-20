@@ -15,14 +15,14 @@ class DocumnetProvider {
 
   Future<Map<String, dynamic>> crearDocument(DocumentModel document) async {
     final url = '$_url/qweb/recibirDocumentoExternosWS.do';
-    String? nombreArchivoConExtesion = document.nombreArchivo!.trim() +
-        "." +
-        document.extensionArchivo!.trim();
+    String? nombreArchivoSinExtesion = document.nombreArchivo!.trim();
 
     final documenJson = {
-      'nombreArchivo': nombreArchivoConExtesion,
+      'nombreArchivo': nombreArchivoSinExtesion,
       'emailUsuarioRecibe': document.emailUsuarioRecibe,
       'descript': document.comentario,
+      'palabraClave': document.palabraClave,
+      'extension': document.extensionArchivo,
       'archivo': document.archivo
     };
     var client = http.Client();
@@ -44,12 +44,16 @@ class DocumnetProvider {
 
         return {'ok': true, 'mensaje': "todo paso ok"};
       } else {
-        print(resp.statusCode);
+        //print(resp.statusCode);
+
+        print(resp.body);
         print("Error en Peticion");
+        var isNotEmpty2 = resp.body.isNotEmpty;
         return {
           'ok': false,
-          'mensaje':
-              'Error en peticion, Email no Registrado/Token No Valido /Datos Faltante '
+          'mensaje': isNotEmpty2
+              ? resp.body
+              : "Faltan datos en La petición/Error Desconocido"
         };
       }
     } catch (e) {

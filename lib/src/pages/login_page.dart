@@ -63,7 +63,7 @@ class LoginPage extends StatelessWidget {
           TextButton(
               onPressed: () =>
                   Navigator.pushReplacementNamed(context, 'cuenta'),
-              child: Text('Cambiar una nueva de Conexion Qweb')),
+              child: Text('Cambiar de Conexion Qweb')),
           SizedBox(height: 100.0)
         ],
       ),
@@ -78,7 +78,7 @@ class LoginPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: TextField(
             keyboardType: TextInputType.text,
-          
+
             textCapitalization: TextCapitalization.characters,
             decoration: InputDecoration(
                 icon: Icon(Icons.supervised_user_circle, color: Colors.blue),

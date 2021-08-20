@@ -15,6 +15,7 @@ class DocumentModel {
     this.emailUsuarioRecibe,
     this.extensionArchivo,
     this.comentario,
+    this.palabraClave,
     required this.archivo,
     // this.archivo,
   });
@@ -23,6 +24,7 @@ class DocumentModel {
   String? emailUsuarioRecibe = 'darwin.uzcategui1973@gmail.com';
   String? extensionArchivo;
   String? comentario = "";
+  String? palabraClave = "";
   List<int> archivo;
 
   factory DocumentModel.fromJson(Map<String, dynamic> json) => DocumentModel(
@@ -30,6 +32,7 @@ class DocumentModel {
         emailUsuarioRecibe: json["emailUsuarioRecibe"],
         extensionArchivo: json["extensionArchivo"],
         comentario: json["comentario"],
+        palabraClave: json["palabraClave"],
         archivo: List<int>.from(json["archivo"].map((x) => x)),
       );
 
@@ -38,6 +41,7 @@ class DocumentModel {
         "emailUsuarioRecibe": emailUsuarioRecibe,
         "extensionArchivo": extensionArchivo,
         "comentario": comentario,
+        "palabraClave": palabraClave,
         "archivo": List<dynamic>.from(archivo.map((x) => x)),
       };
 }
