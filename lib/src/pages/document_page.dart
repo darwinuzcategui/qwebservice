@@ -141,6 +141,7 @@ class _DocumentPageState extends State<DocumentPage> {
 
         setState(() {
           print(" Grabando!!!");
+          grabando = false;
         });
       }
       if (document.extensionArchivo != null) {
