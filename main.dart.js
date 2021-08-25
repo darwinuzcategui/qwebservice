@@ -18284,7 +18284,7 @@ a5U:function a5U(a){this.a=a},
 a5V:function a5V(){},
 a6_:function a6_(){},
 a60:function a60(){},
-a61:function a61(){},
+a61:function a61(a){this.a=a},
 a62:function a62(){},
 a5Z:function a5Z(){},
 a5S:function a5S(a){this.a=a},
@@ -62825,7 +62825,7 @@ o=p.z
 if(o.c==null){n=p.c
 n.toString
 Q.aca(n,"Falta cargar el archivo!")
-p.aF(new V.a61())}s=o.c!=null?5:6
+p.aF(new V.a61(p))}s=o.c!=null?5:6
 break
 case 5:s=7
 return P.a3(p.e.uq(o),$async$tT)
@@ -62892,7 +62892,8 @@ V.a60.prototype={
 $0(){},
 $S:0}
 V.a61.prototype={
-$0(){P.cR(" Grabando!!!")},
+$0(){P.cR(" Grabando!!!")
+this.a.x=!1},
 $S:0}
 V.a62.prototype={
 $0(){},
