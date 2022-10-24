@@ -186,7 +186,7 @@ class LoginPage extends StatelessWidget {
                 height: 10.0,
                 width: double.infinity,
               ),
-              Text('Qweb-Service',
+              Text('QwebApp',
                   style: TextStyle(color: Colors.white, fontSize: 25.0)),
             ],
           ),

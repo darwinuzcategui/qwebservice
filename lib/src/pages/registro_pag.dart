@@ -54,8 +54,7 @@ class _RegistroPageState extends State<RegistroPage> {
                 ]),
             child: Column(
               children: <Widget>[
-                Text('Cambiar de conexion Qweb',
-                    style: TextStyle(fontSize: 20.0)),
+                Text('Conexion Qweb', style: TextStyle(fontSize: 20.0)),
                 SizedBox(height: 10.0),
                 _crearHttp(bloc),
                 SizedBox(height: 10.0),
@@ -205,7 +204,7 @@ class _RegistroPageState extends State<RegistroPage> {
                 height: 10.0,
                 width: double.infinity,
               ),
-              Text('Qweb-Service',
+              Text('QwebApp',
                   style: TextStyle(color: Colors.white, fontSize: 25.0)),
             ],
           ),
