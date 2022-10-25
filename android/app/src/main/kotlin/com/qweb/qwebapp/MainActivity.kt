@@ -1,4 +1,4 @@
-package com.qweb.qwebservice
+package com.qweb.qwebapp
 
 import io.flutter.embedding.android.FlutterActivity
 
