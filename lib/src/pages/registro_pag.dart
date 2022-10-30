@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:qwebdoc/src/bloc/provider.dart';
 import 'package:qwebdoc/src/preferences_userQweb/preferences_userQweb.dart';
 import 'package:qwebdoc/src/providers/userQweb_provider.dart';
@@ -118,8 +117,7 @@ class _RegistroPageState extends State<RegistroPage> {
 
   Widget _crearBoton(LoginBloc bloc) {
     final ButtonStyle flatButtonStyle = TextButton.styleFrom(
-      primary: Color.fromRGBO(121, 162, 198, 1.0),
-      // backgroundColor: Color.fromRGBO(92, 224, 132, 1.0),
+      foregroundColor: Colors.blue,
       elevation: 0.0,
       minimumSize: Size(88, 36),
       padding: EdgeInsets.symmetric(horizontal: 16.0),

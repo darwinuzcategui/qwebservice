@@ -16,6 +16,7 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.green.shade300,
         title: Text('Home'),
         leading: IconButton(
           icon: Icon(Icons.login_outlined),

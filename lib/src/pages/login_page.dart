@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:qwebdoc/src/bloc/provider.dart';
 import 'package:qwebdoc/src/providers/userQweb_provider.dart';
 import 'package:qwebdoc/src/utilis/utilis.dart';
@@ -78,8 +77,7 @@ class LoginPage extends StatelessWidget {
           padding: EdgeInsets.symmetric(horizontal: 20.0),
           child: TextField(
             keyboardType: TextInputType.text,
-
-            textCapitalization: TextCapitalization.characters,
+            //  textCapitalization: TextCapitalization.characters,
             decoration: InputDecoration(
                 icon: Icon(Icons.supervised_user_circle, color: Colors.blue),
                 hintText: 'Usuario Qweb',
@@ -116,8 +114,7 @@ class LoginPage extends StatelessWidget {
 
   Widget _createButton(LoginBloc bloc) {
     final ButtonStyle flatButtonStyle = TextButton.styleFrom(
-      primary: Color.fromRGBO(121, 162, 198, 1.0),
-      // backgroundColor: Color.fromRGBO(92, 224, 132, 1.0),
+      foregroundColor: Colors.blue,
       elevation: 0.0,
       minimumSize: Size(88, 36),
       padding: EdgeInsets.symmetric(horizontal: 16.0),
