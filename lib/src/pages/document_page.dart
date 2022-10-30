@@ -198,6 +198,7 @@ class _DocumentPageState extends State<DocumentPage> {
         'doc',
         'xls',
         'xlsx',
+        'xlsm',
         'pdf',
         'txt',
         'odt',
