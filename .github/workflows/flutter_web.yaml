@@ -18,6 +18,15 @@ jobs:
       uses: subosito/flutter-action@v1
       with:
         channel: 'dev'
+
+    - name: Actulizar flutter
+      run:  flutter upgrade
+
+    - name: Realizar flutter pub get 
+      run:  flutter pub get
+
+    - name: Realizar flutter pub upgrade get 
+      run:  fflutter pub upgrade
     
     - name: Enable Flutter web
       run: flutter config --enable-web
