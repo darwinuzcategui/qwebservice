@@ -26,7 +26,7 @@ jobs:
       run:  flutter pub get
 
     - name: Realizar flutter pub upgrade get 
-      run:  fflutter pub upgrade
+      run:  flutter pub upgrade
     
     - name: Enable Flutter web
       run: flutter config --enable-web
