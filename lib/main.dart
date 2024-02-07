@@ -31,8 +31,17 @@ class MyApp extends StatelessWidget {
           'document': (BuildContext context) => DocumentPage(),
           'cuenta': (BuildContext context) => RegistroPage(),
         },
-        theme: ThemeData(primaryColor: Colors.green.shade300),
+        theme: ThemeData(primaryColor: Color.fromARGB(255, 119, 172, 243)),
+        //theme: ThemeData(primaryColor: Colors.green.shade300),
+       
       ),
     );
   }
 }
+
+/*
+  //#0455BF azul
+  //#0476D9 azul mas calro
+  //#024873 azul mas oscuro
+  //#79C4F2 verde
+*/

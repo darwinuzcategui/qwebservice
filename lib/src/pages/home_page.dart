@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green.shade300,
+        backgroundColor: Color.fromARGB(255, 154, 192, 240),
         title: Text('Home'),
         leading: IconButton(
           icon: Icon(Icons.login_outlined),
@@ -44,7 +44,8 @@ class HomePage extends StatelessWidget {
   _createButton(BuildContext context) {
     return FloatingActionButton(
       child: Icon(Icons.add),
-      backgroundColor: Colors.green.shade300,
+      backgroundColor: Color.fromARGB(255, 154, 192, 240),
+      //backgroundColor: Colors.green.shade300,
       onPressed: () => Navigator.pushNamed(context, 'document'),
     );
   }

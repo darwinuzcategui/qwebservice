@@ -34,7 +34,7 @@ class _DocumentPageState extends State<DocumentPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green.shade300,
+        backgroundColor: Color.fromARGB(255, 154, 192, 240),
         title: Text('Document Service'),
         actions: <Widget>[
           IconButton(
@@ -111,7 +111,7 @@ class _DocumentPageState extends State<DocumentPage> {
             label: Text('Guardar'),
             onPressed: _submit,
             style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.green.shade300,
+                backgroundColor: Color.fromARGB(255, 154, 192, 240),
                 shape: new RoundedRectangleBorder(
                   borderRadius: new BorderRadius.circular(20.0),
                 ),

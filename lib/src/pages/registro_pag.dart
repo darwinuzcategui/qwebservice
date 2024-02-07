@@ -173,8 +173,11 @@ class _RegistroPageState extends State<RegistroPage> {
       width: double.infinity,
       decoration: BoxDecoration(
           gradient: LinearGradient(colors: <Color>[
-        Color.fromRGBO(92, 224, 132, 1.0),
-        Color.fromRGBO(121, 162, 198, 1.0)
+            Color(0x800476D9),
+            Color.fromARGB(255, 139, 185, 246),
+            
+        //Color.fromRGBO(92, 224, 132, 1.0),
+        //Color.fromRGBO(121, 162, 198, 1.0)
       ])),
     );
     final circulo = Container(
