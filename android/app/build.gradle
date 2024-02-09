@@ -52,8 +52,8 @@ android {
         applicationId "com.qweb.qwebapp"
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion 33
-        versionCode 4
-        versionName "5.0.0.4"
+        versionCode 5
+        versionName "5.0.0.5"
     }
 
        signingConfigs {

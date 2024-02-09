@@ -174,8 +174,8 @@ class _RegistroPageState extends State<RegistroPage> {
       decoration: BoxDecoration(
           gradient: LinearGradient(colors: <Color>[
             Color(0x800476D9),
-            Color.fromARGB(255, 139, 185, 246),
-            
+            Color(0xff0455BF),
+            //Color(0xff024873),
         //Color.fromRGBO(92, 224, 132, 1.0),
         //Color.fromRGBO(121, 162, 198, 1.0)
       ])),

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:qwebdoc/src/bloc/provider.dart';
 import 'package:qwebdoc/src/providers/userQweb_provider.dart';
 import 'package:qwebdoc/src/utilis/utilis.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LoginPage extends StatelessWidget {
   final userQwebProvider = new UserQwebProvider();
@@ -54,7 +55,7 @@ class LoginPage extends StatelessWidget {
                 _createUser(bloc),
                 SizedBox(height: 15.0),
                 _createPassword(bloc),
-                SizedBox(height: 15.0),
+                SizedBox(height: 10.0),
                 _createButton(bloc),
               ],
             ),
@@ -63,7 +64,11 @@ class LoginPage extends StatelessWidget {
               onPressed: () =>
                   Navigator.pushReplacementNamed(context, 'cuenta'),
               child: Text('Cambiar de Conexion Qweb')),
-          SizedBox(height: 100.0)
+          SizedBox(height: 25.0),
+          TextButton(
+              onPressed: () =>
+                   _launchPrivacyPolicyURL(),
+              child: Text('Política de Privacidad')),
         ],
       ),
     );
@@ -181,10 +186,15 @@ class LoginPage extends StatelessWidget {
         Positioned(bottom: 120.0, right: 20.0, child: circulo),
         Positioned(bottom: -50.0, left: -20.0, child: circulo),
         Container(
-          padding: EdgeInsets.only(top: 80.0),
+         padding: EdgeInsets.only(top: 5.0),
           child: Column(
             children: <Widget>[
-              Icon(Icons.dashboard_customize, color: Colors.white, size: 100.0),
+               Image.asset(
+                "assets/icon/qweb.png", // Ruta de tu imagen
+                height: size.height * 0.40,
+                width: double.infinity,
+              ),
+             // Icon(Icons.dashboard_customize, color: Colors.white, size: 100.0),
               SizedBox(
                 height: 10.0,
                 width: double.infinity,
@@ -197,4 +207,12 @@ class LoginPage extends StatelessWidget {
       ],
     );
   }
+  _launchPrivacyPolicyURL() async {
+   final Uri _url = Uri.parse('https://github.com/darwinuzcategui/qwebservice/blob/main/politica.md');
+
+    if (!await launchUrl(_url)) {
+      throw 'No se puede abrir la URL: $_url';
+    }
+  }
+
 }
