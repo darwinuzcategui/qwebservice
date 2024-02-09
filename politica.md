@@ -5,6 +5,7 @@
 # 1. Información General:
 
 Bienvenido a QwebService App, desarrollada por Darwin Felipe Uzcategui Gonzalez. Esta política de privacidad explica cómo recopilamos, utilizamos y protegemos la información personal de los usuarios que utilizan nuestra aplicación.
+
 # 2. Datos Recopilados:
 # 2.1 Información proporcionada por el Usuario:
 
@@ -33,7 +34,7 @@ Nos reservamos el derecho de actualizar nuestra política de privacidad en cualq
 
 # 8. Preguntas y Contacto:
 
-Si tienes alguna pregunta sobre nuestra política de privacidad o el tratamiento de tus datos, contáctanos en darwin.uzcategui1973@gmail.com
+Si tienes alguna pregunta sobre nuestra política de privacidad o el tratamiento de tus datos, contáctanos en darwin.uzcategui1973@gmail.com o por whastsApp +58 4149213235
 
 Al utilizar nuestra aplicación, aceptas los términos descritos en esta política de privacidad.
 
@@ -65,4 +66,3 @@ Al utilizar nuestra aplicación, aceptas los términos descritos en esta políti
 * Terceros: se refiere a anunciantes, patrocinadores de concursos, socios promocionales y de marketing, y otros que brindan nuestro contenido o cuyos productos o servicios que creemos que pueden interesarle.
 
 * Sitio web: el sitio de Darwin Uzcategui al que se puede acceder a través de esta URL:[darwinuzcategui1973.github.io](https://darwinuzcategui1973.github.io/)
-
