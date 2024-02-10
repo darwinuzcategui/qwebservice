@@ -24,7 +24,7 @@ jobs:
       run: flutter config --enable-web
 
     - name: Install dependeces
-      run: flutter packages get
+      run: flutter pub  get
 
     - name: Build web Qwebapp
       run: flutter build web
