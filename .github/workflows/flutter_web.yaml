@@ -35,7 +35,6 @@ jobs:
       with:
         github_token: ${{ secrets.token }}
         publish_dir: ./build/web
-        force_orphan: true
         user_name: 'darwinuzcategui'
         user_email: 'darwin.uzcategui1973@gmail.com'
         commit_message: 'PubliCAR EN gh-pages'
