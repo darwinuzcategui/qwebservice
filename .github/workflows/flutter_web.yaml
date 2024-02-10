@@ -12,19 +12,19 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     
     - name: Download flutter
-      uses: subosito/flutter-action@v1
+      uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.3.6'
+        channel: 'stable'
 
     - name: Enable Flutter web
       run: flutter config --enable-web
 
     - name: Install dependeces
-      run: flutter pub  get
+      run: flutter pub get
 
     - name: Build web Qwebapp
       run: flutter build web
