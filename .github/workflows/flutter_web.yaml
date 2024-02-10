@@ -3,11 +3,13 @@ name: Qweb Service Web
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+   env:
+      my_secret: ${{secrets.commit_secret}}
+  runs-on: ubuntu-latest
   
     steps:
     - name: Checkout
