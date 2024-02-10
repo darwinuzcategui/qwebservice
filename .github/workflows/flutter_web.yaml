@@ -3,7 +3,7 @@ name: Qweb Service Web
 on:
   push:
     branches:
-      - main
+      - master
 
 
 jobs:
