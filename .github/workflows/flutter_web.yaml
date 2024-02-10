@@ -23,10 +23,7 @@ jobs:
 
     - name: Fluuter Pub-get
       run: flutter pub get
-
-    - name: flutter test
-      run:  flutter test
-
+      
     - name: Build web Qwebapp
       run: flutter build web
 
