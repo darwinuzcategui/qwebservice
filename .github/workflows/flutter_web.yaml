@@ -33,7 +33,7 @@ jobs:
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: ${{ secrets.token }}
+        github_token: ${{ secrets.token_darwin_uzcategui }}
         publish_dir: ./build/web
         user_name: 'darwinuzcategui'
         user_email: 'darwin.uzcategui1973@gmail.com'
