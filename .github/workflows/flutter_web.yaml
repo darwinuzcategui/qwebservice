@@ -1,48 +1,36 @@
 name: Qweb Service Web
+
 on:
   push:
     branches:
       - master
 
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-    
     - name: Checkout
-      uses: actions/checkout@v3
+      uses: actions/checkout@v2
+
     
     - name: Download flutter
-      uses: subosito/flutter-action@v2
+      uses: subosito/flutter-action@v1
       with:
-        channel: 'stable'
+        flutter-version: '3.3.6'
 
     - name: Enable Flutter web
       run: flutter config --enable-web
 
-    - name: Fluuter Pub-get
-      run: flutter pub get
-      
+    - name: Install dependeces
+      run: flutter packages get
+
     - name: Build web Qwebapp
       run: flutter build web
 
-    - name: Desploy en la web Qwebapp
-      run: |
-          cd build/web
-          git init
-          # type configurations: your user.email and user.name followed lines 
-          # git config --global user.email darwin.uzcategui1973@gmail.com 
-          # git config --global user.name darwinuzcategui 
-          git config --global user.email darwin.uzcategui1973@gmail.com
-          git config --global user.name darwinuzcategui
-          git status
-          # change this remote url for examle your remote url is https://github.com/onatcipli/flutter_web.git then the following:
-          # https://github.com/darwinuzcategui/qwebservice.git
-          # https://github.com/darwinuzcategui/qwebservice.git
-          git remote add origin https://${{secrets.commit_secret}}@github.com/darwinuzcategui/qwebservice.git
-          git checkout -b gh-pages
-          git add --all
-          git commit -m "update"
-          git push origin gh-pages -f
-
- 
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.token }}
+        publish_dir: ./build/web
