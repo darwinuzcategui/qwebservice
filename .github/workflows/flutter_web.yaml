@@ -7,8 +7,6 @@ on:
 
 jobs:
   build:
-   env:
-      my_secret: ${{secrets.commit_secret}}
   runs-on: ubuntu-latest
   
     steps:
