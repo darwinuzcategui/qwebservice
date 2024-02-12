@@ -33,7 +33,8 @@ jobs:
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
       with:
-        github_token: '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'        
+        github_token: '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'
+        publish_dir: ./public
         user_name: 'darwinuzcategui'
         user_email: 'darwin.uzcategui1973@gmail.com'
         commit_message: 'PubliCAR EN gh-pages'
