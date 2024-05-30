@@ -13,89 +13,168 @@
 
     This is a placeholder for base href that will be replaced by the value of
     the `--base-href` argument provided to `flutter build`.
+  <base href="/">
   -->
-  <base href="$FLUTTER_BASE_HREF">
-
+  <base href=""> 
+  
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
-
+  <meta name="description" content=""A new Flutter project."">
+  
   <!-- iOS meta tags & icons -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="qwebdoc">
+  <meta name="apple-mobile-web-app-title" content="Qweb-Service">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-  <title>qwebdoc</title>
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>Qweb-Service</title>
   <link rel="manifest" href="manifest.json">
+  <!-- Styling for loading indicator  ccs-->
+  <style>
+    @import url(https://fonts.googleapis.com/css?family=Quattrocento+Sans);
+    .loading {
+      position: flex;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /*background: #000;*/
+      /*background: #41403b;*/
+      z-index: 9999;
+    }
+    .loading-text {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      text-align: center;
+      width: 100%;
+      height: 100px;
+      line-height: 100px;
+    }
+    .loading-text span {
+      display: inline-block;
+      margin: 0 5px;
+    /*  color: #fff;*/
+      color: #DDD113;
+    
+      font-family: 'Quattrocento Sans', sans-serif;
+    }
+    .loading-text span:nth-child(1) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 0s infinite linear alternate;
+    }
+    .loading-text span:nth-child(2) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 0.2s infinite linear alternate;
+    }
+    .loading-text span:nth-child(3) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 0.4s infinite linear alternate;
+    }
+    .loading-text span:nth-child(4) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 0.6s infinite linear alternate;
+    }
+    .loading-text span:nth-child(5) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 0.8s infinite linear alternate;
+    }
+    .loading-text span:nth-child(6) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 1s infinite linear alternate;
+    }
+    .loading-text span:nth-child(7) {
+      filter: blur(0px);
+      animation: blur-text 1.5s 1.2s infinite linear alternate;
+    }
+   
+    
+    
+    
+    @keyframes blur-text {
+      0% {
+        filter: blur(0px);
+      }
+      100% {
+        filter: blur(4px);
+      }
+    }
+
+    /** ccs de la imagen -- */
+      .container {
+       /* background: #000;*/
+        width: 100vw;
+        height: 100vh;
+        display: flex; /* Default Axis is X*/
+        justify-content: center; /* Main Axis */
+        align-items: center; /* Cross Axis */
+      }
+      .indicator{
+        width: 50vw;
+      }
+      html{
+        background: #000;
+      }
+ </style> 
+
+  <script>
+    // The value below is injected by flutter build, do not touch.
+    const serviceWorkerVersion = "4029606856";
+  </script>
+  <!-- This script adds the flutter initialization JS code -->
+  <script src="flutter.js" defer></script>
 </head>
 <body>
-  <!-- This script installs service_worker.js to provide PWA functionality to
-       application. For more information, see:
-       https://developers.google.com/web/fundamentals/primers/service-workers -->
+  <!-- Loading Indicator -->
+  <div class="loading">
+    <div class="loading-text">
+      <span class="loading-text-words">I</span>
+      <span class="loading-text-words">N</span>
+      <span class="loading-text-words">I</span>
+      <span class="loading-text-words">C</span>
+      <span class="loading-text-words">I</span>
+      <span class="loading-text-words">O</span>
+      <span class="loading-text-words">.</span>
+    </div>
+  </div>
+   <!--Inicio Gif-->
+
+   <div id="loading_indicator" class="container">
+    <img class="indicator" src="./assets/inicio1.gif" />
+  </div>
+
+
+
   <script>
-    var serviceWorkerVersion = null;
-    var scriptLoaded = false;
-    function loadMainDartJs() {
-      if (scriptLoaded) {
-        return;
-      }
-      scriptLoaded = true;
-      var scriptTag = document.createElement('script');
-      scriptTag.src = 'main.dart.js';
-      scriptTag.type = 'application/javascript';
-      document.body.append(scriptTag);
-    }
-
-    if ('serviceWorker' in navigator) {
-      // Service workers are supported. Use them.
-      window.addEventListener('load', function () {
-        // Wait for registration to finish before dropping the <script> tag.
-        // Otherwise, the browser will load the script multiple times,
-        // potentially different versions.
-        var serviceWorkerUrl = 'flutter_service_worker.js?v=' + serviceWorkerVersion;
-        navigator.serviceWorker.register(serviceWorkerUrl)
-          .then((reg) => {
-            function waitForActivation(serviceWorker) {
-              serviceWorker.addEventListener('statechange', () => {
-                if (serviceWorker.state == 'activated') {
-                  console.log('Installed new service worker.');
-                  loadMainDartJs();
-                }
-              });
-            }
-            if (!reg.active && (reg.installing || reg.waiting)) {
-              // No active web worker and we have installed or are installing
-              // one for the first time. Simply wait for it to activate.
-              waitForActivation(reg.installing || reg.waiting);
-            } else if (!reg.active.scriptURL.endsWith(serviceWorkerVersion)) {
-              // When the app updates the serviceWorkerVersion changes, so we
-              // need to ask the service worker to update.
-              console.log('NUEVO  service worker available.');
-              reg.update();
-              waitForActivation(reg.installing);
-            } else {
-              // Existing service worker is still good.
-              console.log('CARGANDO app from service worker.');
-              loadMainDartJs();
-            }
+    window.addEventListener('load', function(ev) {
+      // Download main.dart.js
+      _flutter.loader.loadEntrypoint({
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
           });
-
-        // If service worker doesn't succeed in a reasonable amount of time,
-        // fallback to plaint <script> tag.
-        setTimeout(() => {
-          if (!scriptLoaded) {
-            console.warn(
-              'Failed to load app from service worker. Falling back to plain <script> tag.',
-            );
-            loadMainDartJs();
-          }
-        }, 4000);
+        }
       });
-    } else {
-      // Service workers not supported. Just drop the <script> tag.
-      loadMainDartJs();
-    }
+    });
+
+    window.onload = function () {
+        setTimeout(function () {
+          var loadingIndicator =document.getElementById("loading_indicator");
+          if (loadingIndicator) {
+            loadingIndicator.remove();
+          }
+        }, 10000);
+};
   </script>
+
 </body>
 </html>
