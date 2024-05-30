@@ -34,7 +34,7 @@ class UserQwebProvider extends ChangeNotifier {
           headers: <String, String>{
             //'Content-Type': 'application/x-www-form-urlencoded',
             //'Access-Control-Allow-Headers': 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method',
-            //'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Origin': '*',
             'Authorization': _qwebToken,
 
           },
