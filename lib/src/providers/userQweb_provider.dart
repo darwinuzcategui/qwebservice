@@ -32,8 +32,11 @@ class UserQwebProvider extends ChangeNotifier {
     try {
       final resp = await http.post(Uri.parse('$_url/qweb/obtenerUsuarioWS.do'),
           headers: <String, String>{
-            'Content-Type': 'application/x-www-form-urlencoded',
-            'Authorization': _qwebToken,
+            //'Content-Type': 'application/x-www-form-urlencoded',
+            //'Access-Control-Allow-Headers': 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method',
+            //'Access-Control-Allow-Origin': '*',
+            //'Authorization': _qwebToken,
+
           },
           body: json.encode(authData));
 
