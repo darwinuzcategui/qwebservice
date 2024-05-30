@@ -3,7 +3,7 @@ name: Qweb Service Web
 on:
   push:
     branches:
-      - master
+      - main
 
 
 jobs:
@@ -12,25 +12,30 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
     
     - name: Download flutter
-      uses: subosito/flutter-action@v1
+      uses: subosito/flutter-action@v2
       with:
-        flutter-version: '3.3.6'
+        channel: 'stable'
 
     - name: Enable Flutter web
       run: flutter config --enable-web
 
     - name: Install dependeces
-      run: flutter packages get
+      run: flutter pub get
 
     - name: Build web Qwebapp
       run: flutter build web
 
-    - name: Deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.token }}
-        publish_dir: ./build/web
+    
+    # - name: Deploy
+      # uses: peaceiris/actions-gh-pages@v3
+      # with:
+        # github_token: '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'
+        # publish_dir: ./public
+        # user_name: 'darwinuzcategui'
+        # user_email: 'darwin.uzcategui1973@gmail.com'
+        # commit_message: 'PubliCAR EN gh-pages'
+
