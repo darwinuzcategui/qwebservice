@@ -14,6 +14,22 @@ class _RegistroPageState extends State<RegistroPage> {
 
   var prefs = new PreferenceUserqweb();
 
+  // Dominio/contexto por defecto (qweb, qwebdocumentsMYSQL, qwebP, ...)
+  late final TextEditingController _dominioController =
+      TextEditingController(text: prefs.dominio);
+  bool _dominioInicializado = false;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // Publica el valor inicial en el stream para habilitar el boton "Crear"
+    if (!_dominioInicializado) {
+      _dominioInicializado = true;
+      final bloc = Provider.of(context);
+      bloc.changeDominioQweb(_dominioController.text);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -58,6 +74,8 @@ class _RegistroPageState extends State<RegistroPage> {
                 _crearHttp(bloc),
                 SizedBox(height: 10.0),
                 _crearPuerto(bloc),
+                SizedBox(height: 10.0),
+                _crearDominio(bloc),
                 SizedBox(height: 15.0),
                 _crearBoton(bloc),
               ],
@@ -115,6 +133,28 @@ class _RegistroPageState extends State<RegistroPage> {
     );
   }
 
+  Widget _crearDominio(LoginBloc bloc) {
+    return StreamBuilder(
+      stream: bloc.dominioQwebStream,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          child: TextField(
+            controller: _dominioController,
+            keyboardType: TextInputType.text,
+            decoration: InputDecoration(
+                icon: Icon(Icons.dns, color: Colors.blue),
+                hintText: 'Ejm qweb, qwebdocumentsMYSQL, qwebP',
+                labelText: 'Dominio / Contexto Qweb',
+                counterText: snapshot.data,
+                errorText: snapshot.error as String?),
+            onChanged: bloc.changeDominioQweb,
+          ),
+        );
+      },
+    );
+  }
+
   Widget _crearBoton(LoginBloc bloc) {
     final ButtonStyle flatButtonStyle = TextButton.styleFrom(
       foregroundColor: Colors.blue,
@@ -144,7 +184,8 @@ class _RegistroPageState extends State<RegistroPage> {
     print('Puerto: ${bloc.puertoQwb} ');
     print('===========================');
     prefs.urlbase = '${bloc.httpQwb}:${bloc.puertoQwb}';
-    print(prefs.urlbase);
+    prefs.dominio = bloc.dominioQwb;
+    print('${prefs.urlbase}/${prefs.dominio}');
 
     //final info = await .nuevoUsuario(bloc.email, bloc.clave);
 

@@ -54,6 +54,15 @@ class PreferenceUserqweb {
     _prefs.setString('urlbase', value);
   }
 
+  // GET y SET del dominio/contexto de Qweb (qweb, qwebdocumentsMYSQL, qwebP, ...)
+  String get dominio {
+    return _prefs.getString('dominio') ?? 'qweb';
+  }
+
+  set dominio(String value) {
+    _prefs.setString('dominio', value);
+  }
+
   // GET y SET de la última página
   String get mensaje {
     return _prefs.getString('mensaje') ?? '*.*';

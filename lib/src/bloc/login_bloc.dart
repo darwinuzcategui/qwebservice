@@ -8,6 +8,7 @@ class LoginBloc with Validators {
 
   final _httpQwebController = BehaviorSubject<String>();
   final _puertoQwebController = BehaviorSubject<String>();
+  final _dominioQwebController = BehaviorSubject<String>();
 
   // Recuperar los datos del Stream o flujo de informacion
   Stream<String> get userNameQwebStream =>
@@ -21,11 +22,14 @@ class LoginBloc with Validators {
   Stream<String> get puertoQwebStream =>
       _puertoQwebController.stream.transform(validatePuerto);
 
+  Stream<String> get dominioQwebStream =>
+      _dominioQwebController.stream.transform(validateDominio);
+
   Stream<bool> get formValidStream => Rx.combineLatest2(
       userNameQwebStream, passwordQwebStream, (dynamic a, dynamic b) => true);
 
-  Stream<bool> get formValidStream1 => Rx.combineLatest2(
-      httpQwebStream, puertoQwebStream, (dynamic a, dynamic b) => true);
+  Stream<bool> get formValidStream1 => Rx.combineLatest3(httpQwebStream,
+      puertoQwebStream, dominioQwebStream, (dynamic a, dynamic b, dynamic c) => true);
 
   // Inserto Valor al Stream
   // getter
@@ -33,6 +37,7 @@ class LoginBloc with Validators {
   Function(String) get changePasswordQweb => _passwordQwebController.sink.add;
   Function(String) get changeHttpQweb => _httpQwebController.sink.add;
   Function(String) get changePuertoQweb => _puertoQwebController.sink.add;
+  Function(String) get changeDominioQweb => _dominioQwebController.sink.add;
 
   // obtener el ultimo valor ingresado a los streams
 
@@ -40,11 +45,13 @@ class LoginBloc with Validators {
   String get passwordQwb => _passwordQwebController.value;
   String get httpQwb => _httpQwebController.value;
   String get puertoQwb => _puertoQwebController.value;
+  String get dominioQwb => _dominioQwebController.value;
 
   dispose() {
     _userNameQwebController.close();
     _passwordQwebController.close();
     _httpQwebController.close();
     _puertoQwebController.close();
+    _dominioQwebController.close();
   }
 }

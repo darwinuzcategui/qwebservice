@@ -34,6 +34,20 @@ class Validators {
     }
   });
 
+  final validateDominio = StreamTransformer<String, String>.fromHandlers(
+      handleData: (dominioQweb, sink) {
+    // Nombre del contexto/dominio: letras, números, guion y guion bajo.
+    // Ejemplos: qweb, qwebdocumentsMYSQL, qwebP, qwebdocumentsPOSTGRESQL
+    Pattern pattern = r'^[A-Za-z0-9_-]{1,60}$';
+    RegExp regExp = new RegExp(pattern as String);
+    if (regExp.hasMatch(dominioQweb)) {
+      sink.add(dominioQweb);
+    } else {
+      sink.addError(
+          'Dominio no es Correcto! Ejm: qweb, qwebdocumentsMYSQL, qwebP');
+    }
+  });
+
   final validatePuerto = StreamTransformer<String, String>.fromHandlers(
       handleData: (puertoQweb, sink) {
     Pattern pattern =
