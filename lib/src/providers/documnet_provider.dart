@@ -7,6 +7,7 @@ import 'package:qwebdoc/src/preferences_userQweb/preferences_userQweb.dart';
 
 class DocumnetProvider {
   String get _url => prefs.urlbase.toString();
+  String get _dominio => prefs.dominio; // qweb, qwebdocumentsMYSQL, qwebP, ...
 
   ///'http://192.168.1.108:8080';
   //final String _url = 'http://70.36.114.168:8095';
@@ -14,7 +15,7 @@ class DocumnetProvider {
   String get _qwebToken => prefs.token;
 
   Future<Map<String, dynamic>> crearDocument(DocumentModel document) async {
-    final url = '$_url/qweb/recibirDocumentoExternosWS.do';
+    final url = '$_url/$_dominio/recibirDocumentoExternosWS.do';
     String? nombreArchivoSinExtesion = document.nombreArchivo!.trim();
 
     final documenJson = {

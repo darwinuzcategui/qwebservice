@@ -23,6 +23,7 @@ class UserQwebProvider extends ChangeNotifier {
   Future<Map<String, dynamic>> userQweb(String usuario, String password) async {
     final authData = {'usuario': usuario, 'clave': password};
     final String _url = prefs.urlbase; //'http://192.168.1.108:8080';
+    final String _dominio = prefs.dominio; // qweb, qwebdocumentsMYSQL, qwebP, ...
 
     var client = http.Client();
     // rutas servidores
@@ -30,7 +31,7 @@ class UserQwebProvider extends ChangeNotifier {
     //http://192.168.0.6:8080/
 
     try {
-      final resp = await http.post(Uri.parse('$_url/qweb/obtenerUsuarioWS.do'),
+      final resp = await http.post(Uri.parse('$_url/$_dominio/obtenerUsuarioWS.do'),
           headers: <String, String>{
             //'Content-Type': 'application/x-www-form-urlencoded',
             //'Access-Control-Allow-Headers': 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method',
